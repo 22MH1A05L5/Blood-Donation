@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodBank Pro - Blood Donation Management System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <!-- Header -->
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">BloodBank Pro</span>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" onclick="showSection('home')" href="#home">Home</a>
+                    <a class="mdl-navigation__link" onclick="showSection('donate')" href="#donate">Donate</a>
+                    <a class="mdl-navigation__link" onclick="showSection('request')" href="#request">Request Blood</a>
+                    <a class="mdl-navigation__link" onclick="showSection('donors')" href="#donors">Donors</a>
+                    <a class="mdl-navigation__link" onclick="showSection('contact')" href="#contact">Contact</a>
+                    <a class="mdl-navigation__link" href="admin.html">Admin Login</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Drawer for mobile -->
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">BloodBank Pro</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" onclick="showSection('home')" href="#home">Home</a>
+                <a class="mdl-navigation__link" onclick="showSection('donate')" href="#donate">Donate</a>
+                <a class="mdl-navigation__link" onclick="showSection('request')" href="#request">Request Blood</a>
+                <a class="mdl-navigation__link" onclick="showSection('donors')" href="#donors">Donors</a>
+                <a class="mdl-navigation__link" onclick="showSection('contact')" href="#contact">Contact</a>
+                <a class="mdl-navigation__link" href="admin.html">Admin Login</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+            <!-- Home Section -->
+            <section id="home" class="page active">
+                <div class="hero-section">
+                    <h1>Save Lives Through Blood Donation</h1>
+                    <p>Your donation can save up to 3 lives!</p>
+                    
+                    <!-- Statistics Cards -->
+                    <div class="stats-cards">
+                        <div class="mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Total Donors</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <span id="total-donors">0</span>
+                            </div>
+                        </div>
+                        <div class="mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Blood Units</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <span id="total-units">0</span>
+                            </div>
+                        </div>
+                        <div class="mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Lives Saved</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <span id="lives-saved">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="showSection('donate')">
+                            Donate Blood
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="showSection('request')">
+                            Request Blood
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Blood Availability -->
+                <div class="blood-availability">
+                    <h2>Current Blood Stock</h2>
+                    <div id="blood-stock-grid" class="blood-grid"></div>
+                </div>
+            </section>
+
+            <!-- Donate Section -->
+            <section id="donate" class="page">
+                <div class="form-container">
+                    <div class="mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Register as Donor</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <form id="donor-form" onsubmit="handleDonorForm(event)">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="donor-name" name="name" required>
+                                    <label class="mdl-textfield__label" for="donor-name">Full Name</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="email" id="donor-email" name="email" required>
+                                    <label class="mdl-textfield__label" for="donor-email">Email</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="tel" id="donor-phone" name="phone" required>
+                                    <label class="mdl-textfield__label" for="donor-phone">Phone</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="date" id="donor-dob" name="dob" required>
+                                    <label class="mdl-textfield__label" for="donor-dob">Date of Birth</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <select class="mdl-textfield__input" id="donor-blood" name="bloodGroup" required>
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                    </select>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <textarea class="mdl-textfield__input" type="text" id="donor-address" name="address" rows="3" required></textarea>
+                                    <label class="mdl-textfield__label" for="donor-address">Address</label>
+                                </div>
+                                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                    Register
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Request Section -->
+            <section id="request" class="page">
+                <div class="form-container">
+                    <div class="mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Request Blood</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <form id="request-form" onsubmit="handleRequestForm(event)">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="patient-name" name="patientName" required>
+                                    <label class="mdl-textfield__label" for="patient-name">Patient Name</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <select class="mdl-textfield__input" id="request-blood" name="bloodGroup" required>
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                    </select>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="number" id="units" name="units" min="1" required>
+                                    <label class="mdl-textfield__label" for="units">Units Required</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="hospital" name="hospital" required>
+                                    <label class="mdl-textfield__label" for="hospital">Hospital Name</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <select class="mdl-textfield__input" id="urgency" name="urgency" required>
+                                        <option value="">Select Urgency</option>
+                                        <option value="immediate">Immediate</option>
+                                        <option value="urgent">Urgent (24 hours)</option>
+                                        <option value="normal">Normal</option>
+                                    </select>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <textarea class="mdl-textfield__input" type="text" id="request-reason" name="reason" rows="3" required></textarea>
+                                    <label class="mdl-textfield__label" for="request-reason">Reason for Request</label>
+                                </div>
+                                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                                    Submit Request
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Donors Section -->
+            <section id="donors" class="page">
+                <div class="table-container">
+                    <div class="mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Recent Donors</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <div class="table-filter">
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" id="donor-search">
+                                    <label class="mdl-textfield__label" for="donor-search">Search Donors...</label>
+                                </div>
+                            </div>
+                            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                <thead>
+                                    <tr>
+                                        <th class="mdl-data-table__cell--non-numeric">Name</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Blood Group</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Age</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Location</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Last Donation</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="donors-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="page">
+                <div class="form-container">
+                    <div class="mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Contact Us</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <form id="contact-form" onsubmit="handleContactForm(event)">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="contact-name" name="name" required>
+                                    <label class="mdl-textfield__label" for="contact-name">Your Name</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="email" id="contact-email" name="email" required>
+                                    <label class="mdl-textfield__label" for="contact-email">Your Email</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <textarea class="mdl-textfield__input" type="text" id="contact-message" name="message" rows="4" required></textarea>
+                                    <label class="mdl-textfield__label" for="contact-message">Your Message</label>
+                                </div>
+                                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo">BloodBank Pro</div>
+                <ul class="mdl-mini-footer__link-list">
+                    <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#donate" onclick="showSection('donate')">Donate</a></li>
+                    <li><a href="#request" onclick="showSection('request')">Request</a></li>
+                    <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+                </ul>
+            </div>
+            <div class="mdl-mini-footer__right-section">
+                <p>&copy; 2025 BloodBank Pro. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

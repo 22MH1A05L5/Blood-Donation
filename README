@@ -1,0 +1,45 @@
+# BLOOD DONATION
+
+
+
+
+## Features
+1. 🩸 Real-Time Blood Stock Visibility
+The website shows up-to-date information on the availability of all blood types in a clear, easy-to-read grid. This helps patients, families, and hospitals instantly check if the required blood type is available — a crucial feature during emergencies when every second counts.
+
+2. 📝 Quick Blood Request Submission
+Anyone in need can fill out a simple form to request blood. The system allows them to select the required blood type, urgency level, and other important details. These requests are then visible to the admin for quick review and action, making it easier to connect patients with help immediately.
+
+3. 👤 Easy Donor Registration
+Potential donors can register themselves through the website in just a few steps. This helps build and maintain a network of available blood donors — ready to respond whenever there's a critical need. More donors means faster matches and more lives saved.
+
+4. ⚠️ Urgency-Based Prioritization
+Each blood request can be tagged with a priority status — such as “Immediate”, “Urgent”, or “Normal.” These visual badges help the admin quickly identify the most critical cases, so they can prioritize and dispatch resources where they’re needed most, without delays.
+
+5. 📊 Centralized Admin Control Panel
+The admin dashboard is the heart of the system — managing donors, requests, and blood stock all in one place. With tools to add, filter, and delete data, admins can make fast decisions, monitor availability, and ensure timely support is given to those in need.
+
+
+
+
+
+
+**Client:** HTML, CSS, JAVASCRIPT
+
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at sudhiryadav9787@gmail.com
+
+
+## Authors
+
+- [@sudhiryadav](https://github.com/22MH1A05L5)
+
+
+## 🔗 Links
+[![linkedin]()
+
+
+https://www.linkedin.com/in/sudhiryadav9787/
